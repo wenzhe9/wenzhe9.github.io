@@ -21,7 +21,7 @@ if (!isGitHubPagesBuild) {
 }
 
 export default defineConfig({
-  base: isGitHubPagesBuild ? "/personal-academic-site/" : "/",
+  base: "/",
   define: {
     "import.meta.env.VITE_BUILD_DATE": JSON.stringify(buildDate),
   },

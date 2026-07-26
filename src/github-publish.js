@@ -1,5 +1,5 @@
 const OWNER = "wenzhe9";
-const REPOSITORY = "personal-academic-site";
+const REPOSITORY = "wenzhe9.github.io";
 const BRANCH = "main";
 const API_ROOT = `https://api.github.com/repos/${OWNER}/${REPOSITORY}`;
 

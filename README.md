@@ -6,7 +6,7 @@ Personal academic portfolio with separate Home, Project, CV, project-detail PDF,
 
 The site is deployed automatically to GitHub Pages whenever `main` is updated:
 
-https://wenzhe9.github.io/personal-academic-site/
+https://wenzhe9.github.io/
 
 ## Local development
 

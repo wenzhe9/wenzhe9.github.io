@@ -166,7 +166,7 @@ export function Admin() {
 
         {panel === "publish" && <section className="ve-panel">
           <h2>Publish to GitHub</h2>
-          <p style={{ color: "var(--ve-muted)", fontSize: 12, lineHeight: 1.55 }}>Enter a fine-grained GitHub token with access only to <strong>wenzhe9/personal-academic-site</strong> and the repository permission <strong>Contents: Read and write</strong>.</p>
+          <p style={{ color: "var(--ve-muted)", fontSize: 12, lineHeight: 1.55 }}>Enter a fine-grained GitHub token with access only to <strong>wenzhe9/wenzhe9.github.io</strong> and the repository permission <strong>Contents: Read and write</strong>.</p>
           <label className="ve-field"><span>GitHub fine-grained token</span><input type="password" autoComplete="off" value={githubToken} onChange={(event) => setGithubToken(event.target.value)} placeholder="github_pat_…" /></label>
           <p style={{ color: "var(--ve-muted)", fontSize: 11, lineHeight: 1.55 }}>The token stays only in this open editor page. It is not saved in the website, browser storage, or GitHub repository.</p>
           <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noreferrer" style={{ display: "inline-block", marginTop: 4, fontSize: 12 }}>Create a fine-grained token on GitHub</a>
