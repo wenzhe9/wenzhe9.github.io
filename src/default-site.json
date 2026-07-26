@@ -6,10 +6,10 @@
   "linkedin": "https://www.linkedin.com/in/wz-xu/",
   "contactVisibility": {
     "email": true,
-    "github": true,
+    "github": false,
     "linkedin": true
   },
-  "newsVisible": true,
+  "newsVisible": false,
   "portrait": "/assets/wenzhe-xu.jpg",
   "intro": [
     "I am a researcher interested in how people understand, use, and live with emerging technologies. My work brings together human–computer interaction, responsible innovation, and technology-mediated experiences.",
@@ -33,8 +33,8 @@
   "projects": [
     {
       "title": "Project 01 — A.O. SMITH",
-      "period": "2022 · Work project",
-      "summary": "Based on the horizontal screen hardware UX design of the Manufacturing Execution System for workers in a fixed workstation scenario Co-Design / UX Design",
+      "period": "2022  · Work project",
+      "summary": "Based on the horizontal screen hardware UX design of the Manufacturing Execution System for workers in a fixed workstation scenario\n\nCo-Design /  UX Design",
       "detail": "Use this paragraph for methods, collaborators, key findings, outputs, or the impact of the work. Keep each description focused so the image and text remain balanced.",
       "link": "#",
       "image": "/assets/project-01.jpg",
@@ -82,8 +82,8 @@
       "pdfPath": ""
     }
   ],
-  "cvPdfName": "Default CV",
-  "cvPdfPath": "/cv.pdf",
+  "cvPdfName": "CV_WenzheXu_20260726(EN).pdf",
+  "cvPdfPath": "/uploads/cv.pdf",
   "design": {
     "contentWidth": 1120,
     "pageTop": 64,
