@@ -8,8 +8,20 @@ const buildDate = new Intl.DateTimeFormat("en-US", {
   timeZone: "Asia/Shanghai",
 }).format(new Date());
 
+const isGitHubPagesBuild = Boolean(process.env.GITHUB_ACTIONS);
+const pageInputs = {
+  home: resolve(import.meta.dirname, "index.html"),
+  projects: resolve(import.meta.dirname, "projects/index.html"),
+  project: resolve(import.meta.dirname, "project/index.html"),
+  cv: resolve(import.meta.dirname, "cv/index.html"),
+};
+
+if (!isGitHubPagesBuild) {
+  pageInputs.admin = resolve(import.meta.dirname, "admin/index.html");
+}
+
 export default defineConfig({
-  base: process.env.GITHUB_ACTIONS ? "/personal-academic-site/" : "/",
+  base: isGitHubPagesBuild ? "/personal-academic-site/" : "/",
   define: {
     "import.meta.env.VITE_BUILD_DATE": JSON.stringify(buildDate),
   },
@@ -26,13 +38,7 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      input: {
-        home: resolve(import.meta.dirname, "index.html"),
-        projects: resolve(import.meta.dirname, "projects/index.html"),
-        project: resolve(import.meta.dirname, "project/index.html"),
-        cv: resolve(import.meta.dirname, "cv/index.html"),
-        admin: resolve(import.meta.dirname, "admin/index.html"),
-      },
+      input: pageInputs,
     },
   },
   plugins: [react()],
