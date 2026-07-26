@@ -95,6 +95,14 @@ export function Admin() {
   }, [dirty]);
 
   const updateProject = (key, value) => update({ ...content, projects: content.projects.map((project, index) => index === projectIndex ? { ...project, [key]: value } : project) });
+  const moveProject = (offset) => {
+    const targetIndex = projectIndex + offset;
+    if (targetIndex < 0 || targetIndex >= content.projects.length) return;
+    const projects = [...content.projects];
+    [projects[projectIndex], projects[targetIndex]] = [projects[targetIndex], projects[projectIndex]];
+    update({ ...content, projects });
+    setProjectIndex(targetIndex);
+  };
   const upload = async (file) => { if (file) updateProject("image", await compressImage(file)); };
   const uploadPortrait = async (file) => { if (file) update({ ...content, portrait: await compressImage(file) }); };
   const preview = panel === "projects" ? withBase("projects/") : panel === "cv" ? withBase("cv/") : withBase();
@@ -137,13 +145,18 @@ export function Admin() {
 
         {panel === "projects" && <section className="ve-panel">
           <h2>Project content</h2>
-          <div className="ve-project-tabs">{content.projects.map((_, index) => <button className={projectIndex === index ? "active" : ""} key={index} onClick={() => setProjectIndex(index)}>{index + 1}</button>)}</div>
+          <div className="ve-project-tabs">{content.projects.map((project, index) => <button className={projectIndex === index ? "active" : ""} style={{ opacity: project.visible === false ? .48 : 1 }} key={project.storageKey || index} onClick={() => setProjectIndex(index)} title={project.visible === false ? "Hidden project" : "Visible project"}>{index + 1}</button>)}</div>
+          <div className="ve-project-controls">
+            <label style={{ display: "flex", alignItems: "center", gap: 7, marginRight: "auto", color: "var(--ve-muted)", fontSize: 11 }}><input type="checkbox" checked={content.projects[projectIndex].visible !== false} onChange={(event) => updateProject("visible", event.target.checked)} /> Show project</label>
+            <button type="button" disabled={projectIndex === 0} onClick={() => moveProject(-1)}>Move earlier</button>
+            <button type="button" disabled={projectIndex === content.projects.length - 1} onClick={() => moveProject(1)}>Move later</button>
+          </div>
           <div className="ve-upload">
             {content.projects[projectIndex].image && <img src={content.projects[projectIndex].image} alt="Current project" />}
             <label><span>{content.projects[projectIndex].image ? "Replace image" : "Upload image"}</span><input type="file" accept="image/png,image/jpeg,image/webp" onChange={(e) => upload(e.target.files?.[0])} /></label>
             {content.projects[projectIndex].image && <button type="button" onClick={() => updateProject("image", "")}>Remove</button>}
           </div>
-          <PdfUpload label="Project details PDF" name={content.projects[projectIndex].pdfName || ""} storageKey={`project-${projectIndex}`} onNameChange={(value) => updateProject("pdfName", value)} />
+          <PdfUpload label="Project details PDF" name={content.projects[projectIndex].pdfName || ""} storageKey={content.projects[projectIndex].storageKey || `project-${projectIndex}`} onNameChange={(value) => updateProject("pdfName", value)} />
           <Field label="Title" value={content.projects[projectIndex].title} onChange={(value) => updateProject("title", value)} />
           <Field label="Period / role" value={content.projects[projectIndex].period} onChange={(value) => updateProject("period", value)} />
           <Field area label="Summary" value={content.projects[projectIndex].summary} onChange={(value) => updateProject("summary", value)} />

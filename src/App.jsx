@@ -64,17 +64,20 @@ function ProjectImage({ index, src, alt }) {
 
 function Projects({ site }) {
   const frameStyle = { width: `min(${Math.max(site.design.contentWidth, 1120)}px, calc(100% - 48px))` };
+  const visibleProjects = site.projects
+    .map((project, index) => ({ project, index }))
+    .filter(({ project }) => project.visible !== false);
   return (
     <div className="site-frame project-frame" style={frameStyle}>
       <Header current="Project" site={site} />
       <main className="projects-page" style={{ paddingTop: site.design.pageTop }}>
-        <header className="page-intro"><h1>Selected projects</h1><p>Five representative projects spanning research, design, and applied technology.</p></header>
+        <header className="page-intro"><h1>Selected projects</h1><p>{visibleProjects.length} representative projects spanning research, design, and applied technology.</p></header>
         <div className="project-list">
-          {site.projects.map((project, index) => (
-            <article className="project" key={project.title} style={{ marginBottom: site.design.sectionGap }}>
+          {visibleProjects.map(({ project, index }, visibleIndex) => (
+            <article className="project" key={project.storageKey || project.title} style={{ marginBottom: site.design.sectionGap }}>
               <h2>{project.title}</h2>
               <div className="project-grid">
-                <a href={withBase(`project/?id=${index}`)} aria-label={`Open ${project.title} details`} style={{ display: "block", color: "inherit", textDecoration: "none" }}><ProjectImage index={index} src={project.image} alt={project.title} /></a>
+                <a href={withBase(`project/?id=${index}`)} aria-label={`Open ${project.title} details`} style={{ display: "block", color: "inherit", textDecoration: "none" }}><ProjectImage index={visibleIndex} src={project.image} alt={project.title} /></a>
                 <div className="project-copy"><h3>{project.period}</h3><p>{project.summary}</p><p>{project.detail}</p><a href={withBase(`project/?id=${index}`)}>Project details</a></div>
               </div>
             </article>
@@ -109,10 +112,13 @@ function CV({ site, useLocalPdf }) {
 }
 
 function ProjectPdf({ site, useLocalPdf }) {
-  const id = Math.max(0, Math.min(4, Number(new URLSearchParams(window.location.search).get("id")) || 0));
+  const id = Math.max(0, Math.min(site.projects.length - 1, Number(new URLSearchParams(window.location.search).get("id")) || 0));
   const project = site.projects[id];
+  if (!project || project.visible === false) {
+    return <div className="cv-page" style={{ background: "#fbfbfa" }}><div className="site-frame cv-header-frame"><Header current="Project" site={site} /></div><main className="site-frame projects-page"><h1>Project unavailable</h1><p>This project is currently hidden.</p><a href={withBase("projects/")}>← Back to projects</a></main></div>;
+  }
   const fallback = project.pdfPath ? withBase(project.pdfPath) : "";
-  return <div className="cv-page" style={{ background: "#fbfbfa" }}><div className="site-frame cv-header-frame" style={{ position: "sticky", top: 0, zIndex: 50, background: "#fbfbfa" }}><Header current="Project" site={site} /></div><main className="pdf-shell" style={{ paddingTop: 64, position: "relative" }}><a href={withBase("projects/")} style={{ position: "absolute", top: 16, left: "max(24px, calc((100% - 1120px) / 2))", display: "inline-block", padding: "8px 12px", border: "1px solid #cfd4d7", background: "#fff", color: "#202632", fontFamily: "var(--sans)", fontSize: 13, textDecoration: "none" }}>← Back to projects</a><PdfDocument storageKey={`project-${id}`} fallback={fallback} title={project.title} emptyMessage="No PDF has been uploaded for this project yet." useLocal={useLocalPdf} /></main><div className="site-frame cv-footer-frame"><Footer /></div></div>;
+  return <div className="cv-page" style={{ background: "#fbfbfa" }}><div className="site-frame cv-header-frame" style={{ position: "sticky", top: 0, zIndex: 50, background: "#fbfbfa" }}><Header current="Project" site={site} /></div><main className="pdf-shell" style={{ paddingTop: 64, position: "relative" }}><a href={withBase("projects/")} style={{ position: "absolute", top: 16, left: "max(24px, calc((100% - 1120px) / 2))", display: "inline-block", padding: "8px 12px", border: "1px solid #cfd4d7", background: "#fff", color: "#202632", fontFamily: "var(--sans)", fontSize: 13, textDecoration: "none" }}>← Back to projects</a><PdfDocument storageKey={project.storageKey || `project-${id}`} fallback={fallback} title={project.title} emptyMessage="No PDF has been uploaded for this project yet." useLocal={useLocalPdf} /></main><div className="site-frame cv-footer-frame"><Footer /></div></div>;
 }
 
 function PublicSite({ path }) {

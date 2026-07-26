@@ -77,7 +77,7 @@ export async function publishSite({ content, token, getPdf }) {
       project.image = `/${path.replace(/^public\//, "")}`;
     }
 
-    const projectPdf = await getPdf(`project-${index}`);
+    const projectPdf = await getPdf(project.storageKey || `project-${index}`);
     if (projectPdf) {
       const path = `public/uploads/project-${index + 1}.pdf`;
       files.push({ path, content: await fileToBase64(projectPdf) });

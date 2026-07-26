@@ -32,6 +32,8 @@
   ],
   "projects": [
     {
+      "storageKey": "project-0",
+      "visible": true,
       "title": "Project 01 — Add project title",
       "period": "20XX – 20XX · Research project",
       "summary": "Add a concise introduction to the research question, context, and your role in the project.",
@@ -42,6 +44,8 @@
       "pdfPath": ""
     },
     {
+      "storageKey": "project-1",
+      "visible": true,
       "title": "Project 02 — Add project title",
       "period": "20XX – 20XX · Research project",
       "summary": "Add a concise introduction to the research question, context, and your role in the project.",
@@ -52,6 +56,8 @@
       "pdfPath": ""
     },
     {
+      "storageKey": "project-2",
+      "visible": true,
       "title": "Project 03 — Add project title",
       "period": "20XX – 20XX · Research project",
       "summary": "Add a concise introduction to the research question, context, and your role in the project.",
@@ -62,6 +68,8 @@
       "pdfPath": ""
     },
     {
+      "storageKey": "project-3",
+      "visible": true,
       "title": "Project 04 — Add project title",
       "period": "20XX – 20XX · Research project",
       "summary": "Add a concise introduction to the research question, context, and your role in the project.",
@@ -72,6 +80,8 @@
       "pdfPath": ""
     },
     {
+      "storageKey": "project-4",
+      "visible": true,
       "title": "Project 05 — Add project title",
       "period": "20XX – 20XX · Research project",
       "summary": "Add a concise introduction to the research question, context, and your role in the project.",

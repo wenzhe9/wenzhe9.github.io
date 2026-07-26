@@ -16,3 +16,4 @@ When implementing from a selected generated mock, treat that image as the source
 - Store uploaded project and CV PDFs in same-origin IndexedDB. Each Project details link opens `/project/?id=N`, while `/cv/` displays the uploaded CV or the bundled fallback PDF.
 - On GitHub Pages, public routes fetch the repository-backed `public/site-content.json` with cache bypassing; browser-local drafts are used only inside the editor preview. Publishing uploads changed images/PDFs and updates the JSON in one commit.
 - Exclude `admin/index.html` from GitHub Pages production builds. The editor is local-only at `http://localhost:3002/admin/`; public deployments include only Home, Project, project-detail, and CV pages.
+- Projects can be hidden and reordered in the local editor. Keep each project's `storageKey` stable when its array position changes so local IndexedDB PDFs remain attached to the correct project.
