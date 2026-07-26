@@ -71,7 +71,6 @@ function Projects({ site }) {
     <div className="site-frame project-frame" style={frameStyle}>
       <Header current="Project" site={site} />
       <main className="projects-page" style={{ paddingTop: site.design.pageTop }}>
-        <header className="page-intro"><h1>Selected projects</h1><p>{visibleProjects.length} representative projects spanning research, design, and applied technology.</p></header>
         <div className="project-list">
           {visibleProjects.map(({ project, index }, visibleIndex) => (
             <article className="project" key={project.storageKey || project.title} style={{ marginBottom: site.design.sectionGap }}>
