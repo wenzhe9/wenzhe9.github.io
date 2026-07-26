@@ -15,4 +15,4 @@ npm install
 npm run dev
 ```
 
-The visual editor is available at `/admin/`. Its content, images, and uploaded PDFs are stored in the current browser. Browser-local edits are not automatically committed to GitHub or shared with other visitors.
+The visual editor is available at `/admin/`. Local drafts stay in the current browser. When a repository-scoped fine-grained GitHub token is entered, **Publish changes** creates one commit containing the content, images, and PDFs; GitHub Pages then redeploys the public site automatically.

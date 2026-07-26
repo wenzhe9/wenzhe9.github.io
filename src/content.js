@@ -1,38 +1,8 @@
+import defaultSiteData from "./default-site.json";
+
 export const STORAGE_KEY = "wenzhe-academic-site-v2-content";
 
-export const defaultSite = {
-  name: "Wenzhe Xu",
-  headline: "Hi, I’m Wenzhe Xu.",
-  email: "wenzhexu19@gmail.com",
-  github: "https://github.com/wenzhe9",
-  linkedin: "https://www.linkedin.com/in/wz-xu/",
-  contactVisibility: { email: true, github: true, linkedin: true },
-  newsVisible: true,
-  portrait: "/assets/wenzhe-xu.jpg",
-  intro: [
-    "I am a researcher interested in how people understand, use, and live with emerging technologies. My work brings together human–computer interaction, responsible innovation, and technology-mediated experiences.",
-    "My current research focuses on designing thoughtful digital systems and studying their social impact. I am especially interested in work that turns careful observation into practical, human-centred design.",
-    "I welcome conversations with prospective supervisors and collaborators working across design, computing, and interdisciplinary research.",
-  ],
-  news: [
-    { date: "[07/26]", text: "New personal academic website structure launched locally." },
-    { date: "[07/26]", text: "Project descriptions and images are ready to be replaced with final research materials." },
-    { date: "[07/26]", text: "Curriculum vitae page prepared for the final PDF." },
-  ],
-  projects: Array.from({ length: 5 }, (_, index) => ({
-    title: index === 0 ? "Project 01 — A.O. SMITH" : `Project ${String(index + 1).padStart(2, "0")} — Add project title`,
-    period: index === 0 ? "2022 · Work project" : "20XX – 20XX · Research project",
-    summary: index === 0
-      ? "Based on the horizontal screen hardware UX design of the Manufacturing Execution System for workers in a fixed workstation scenario Co-Design / UX Design"
-      : "Add a concise introduction to the research question, context, and your role in the project.",
-    detail: "Use this paragraph for methods, collaborators, key findings, outputs, or the impact of the work. Keep each description focused so the image and text remain balanced.",
-    link: "#",
-    image: index === 0 ? "/assets/project-01.jpg" : "",
-    pdfName: "",
-  })),
-  cvPdfName: "Default CV",
-  design: { contentWidth: 1120, pageTop: 64, bodyFontSize: 21, sectionGap: 48 },
-};
+export const defaultSite = defaultSiteData;
 
 export function loadSite() {
   try {

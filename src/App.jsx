@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { loadSite } from "./content.js";
+import { defaultSite, loadSite } from "./content.js";
 import { getPdf } from "./pdf-store.js";
 import { Admin } from "./Admin.jsx";
 import { getAppPath, withBase } from "./paths.js";
@@ -86,37 +86,43 @@ function Projects({ site }) {
   );
 }
 
-function PdfDocument({ storageKey, fallback = "", title, emptyMessage = "No PDF has been uploaded yet." }) {
+function PdfDocument({ storageKey, fallback = "", title, emptyMessage = "No PDF has been uploaded yet.", useLocal = true }) {
   const [url, setUrl] = useState(fallback);
   useEffect(() => {
+    if (!useLocal) {
+      setUrl(fallback);
+      return undefined;
+    }
     let objectUrl = "";
     getPdf(storageKey).then((file) => {
       if (file) { objectUrl = URL.createObjectURL(file); setUrl(objectUrl); }
     });
     return () => { if (objectUrl) URL.revokeObjectURL(objectUrl); };
-  }, [storageKey]);
+  }, [fallback, storageKey, useLocal]);
   if (!url) return <div className="pdf-empty" style={{ width: "min(1120px, 100%)", height: "100%", margin: "0 auto", padding: "72px", background: "#fff" }}><h1 style={{ marginTop: 0 }}>{title}</h1><p>{emptyMessage}</p><a href={withBase("admin/")}>Upload PDF in the visual editor</a></div>;
   return <object data={url} type="application/pdf" aria-label={title}><p><a href={url}>Open PDF</a></p></object>;
 }
 
-function CV() {
-  const site = loadSite();
-  return <div className="cv-page" style={{ background: "#fbfbfa" }}><div className="site-frame cv-header-frame" style={{ position: "sticky", top: 0, zIndex: 50, background: "#fbfbfa" }}><Header current="CV" site={site} /></div><main className="pdf-shell" style={{ height: "calc(clamp(420px, 70.7vw, 792px) + 88px)", paddingTop: 32 }}><PdfDocument storageKey="cv" fallback={withBase("cv.pdf")} title="Wenzhe Xu CV" /></main><div className="site-frame cv-footer-frame"><Footer /></div></div>;
+function CV({ site, useLocalPdf }) {
+  const fallback = site.cvPdfPath ? withBase(site.cvPdfPath) : "";
+  return <div className="cv-page" style={{ background: "#fbfbfa" }}><div className="site-frame cv-header-frame" style={{ position: "sticky", top: 0, zIndex: 50, background: "#fbfbfa" }}><Header current="CV" site={site} /></div><main className="pdf-shell" style={{ height: "calc(clamp(420px, 70.7vw, 792px) + 88px)", paddingTop: 32 }}><PdfDocument storageKey="cv" fallback={fallback} title="Wenzhe Xu CV" useLocal={useLocalPdf} /></main><div className="site-frame cv-footer-frame"><Footer /></div></div>;
 }
 
-function ProjectPdf() {
-  const site = loadSite();
+function ProjectPdf({ site, useLocalPdf }) {
   const id = Math.max(0, Math.min(4, Number(new URLSearchParams(window.location.search).get("id")) || 0));
   const project = site.projects[id];
-  return <div className="cv-page" style={{ background: "#fbfbfa" }}><div className="site-frame cv-header-frame" style={{ position: "sticky", top: 0, zIndex: 50, background: "#fbfbfa" }}><Header current="Project" site={site} /></div><main className="pdf-shell" style={{ paddingTop: 64, position: "relative" }}><a href={withBase("projects/")} style={{ position: "absolute", top: 16, left: "max(24px, calc((100% - 1120px) / 2))", display: "inline-block", padding: "8px 12px", border: "1px solid #cfd4d7", background: "#fff", color: "#202632", fontFamily: "var(--sans)", fontSize: 13, textDecoration: "none" }}>← Back to projects</a><PdfDocument storageKey={`project-${id}`} title={project.title} emptyMessage="No PDF has been uploaded for this project yet." /></main><div className="site-frame cv-footer-frame"><Footer /></div></div>;
+  const fallback = project.pdfPath ? withBase(project.pdfPath) : "";
+  return <div className="cv-page" style={{ background: "#fbfbfa" }}><div className="site-frame cv-header-frame" style={{ position: "sticky", top: 0, zIndex: 50, background: "#fbfbfa" }}><Header current="Project" site={site} /></div><main className="pdf-shell" style={{ paddingTop: 64, position: "relative" }}><a href={withBase("projects/")} style={{ position: "absolute", top: 16, left: "max(24px, calc((100% - 1120px) / 2))", display: "inline-block", padding: "8px 12px", border: "1px solid #cfd4d7", background: "#fff", color: "#202632", fontFamily: "var(--sans)", fontSize: 13, textDecoration: "none" }}>← Back to projects</a><PdfDocument storageKey={`project-${id}`} fallback={fallback} title={project.title} emptyMessage="No PDF has been uploaded for this project yet." useLocal={useLocalPdf} /></main><div className="site-frame cv-footer-frame"><Footer /></div></div>;
 }
 
 export function App() {
   const path = getAppPath();
   if (path.startsWith("/admin")) return <Admin />;
-  const site = loadSite();
+  const isHostedSite = window.location.hostname.endsWith("github.io");
+  const useLocalDraft = !isHostedSite || new URLSearchParams(window.location.search).has("edit");
+  const site = useLocalDraft ? loadSite() : defaultSite;
   if (path.startsWith("/projects")) return <Projects site={site} />;
-  if (path.startsWith("/project/")) return <ProjectPdf />;
-  if (path.startsWith("/cv")) return <CV />;
+  if (path.startsWith("/project/")) return <ProjectPdf site={site} useLocalPdf={useLocalDraft} />;
+  if (path.startsWith("/cv")) return <CV site={site} useLocalPdf={useLocalDraft} />;
   return <Home site={site} />;
 }

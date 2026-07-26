@@ -12,5 +12,6 @@ When implementing from a selected generated mock, treat that image as the source
 - Keep the Home page editorial and academic: circular portrait, large sans-serif greeting, serif body copy, muted green links, and a compact news list.
 - Keep the Project page as five full-width rows with a project title followed by image-left / description-right content.
 - The CV route should display the PDF directly inside the page.
-- Keep the editor at `/admin/` outside the three-item public navigation. It stores content and layout changes in same-origin browser localStorage and previews them live.
+- Keep the editor at `/admin/` outside the three-item public navigation. It stores drafts in same-origin browser localStorage, previews them live, and can publish one GitHub commit using a session-only fine-grained token.
 - Store uploaded project and CV PDFs in same-origin IndexedDB. Each Project details link opens `/project/?id=N`, while `/cv/` displays the uploaded CV or the bundled fallback PDF.
+- On GitHub Pages, public routes use the repository-backed `src/default-site.json`; browser-local drafts are used only inside the editor preview. Publishing uploads changed images/PDFs and updates the JSON in one commit.

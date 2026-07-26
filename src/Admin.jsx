@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { defaultSite, loadSite, saveSite } from "./content.js";
-import { deletePdf, putPdf } from "./pdf-store.js";
+import { deletePdf, getPdf, putPdf } from "./pdf-store.js";
+import { publishSite } from "./github-publish.js";
 import { withBase } from "./paths.js";
 import "./admin.css";
 
@@ -47,17 +48,41 @@ export function Admin() {
   const [status, setStatus] = useState("Saved locally");
   const [revision, setRevision] = useState(0);
   const [dirty, setDirty] = useState(false);
+  const [githubToken, setGithubToken] = useState("");
+  const [publishing, setPublishing] = useState(false);
+  const isOnlineEditor = window.location.hostname.endsWith("github.io");
 
   const update = (next) => {
     setContent(next);
     setDirty(true);
     setStatus("Unsaved changes");
   };
-  const save = () => {
-    saveSite(content);
-    setDirty(false);
-    setStatus("Saved locally");
-    setRevision((value) => value + 1);
+  const save = async () => {
+    const shouldPublish = Boolean(githubToken.trim()) || isOnlineEditor;
+    if (shouldPublish && !githubToken.trim()) {
+      setPanel("publish");
+      setStatus("GitHub token required");
+      return;
+    }
+
+    setPublishing(true);
+    setStatus(shouldPublish ? "Publishing to GitHub…" : "Saving locally…");
+    try {
+      let savedContent = content;
+      if (shouldPublish) {
+        const result = await publishSite({ content, token: githubToken.trim(), getPdf });
+        savedContent = result.content;
+      }
+      saveSite(savedContent);
+      setContent(savedContent);
+      setDirty(false);
+      setStatus(shouldPublish ? "Published · site updating" : "Saved locally");
+      setRevision((value) => value + 1);
+    } catch (error) {
+      setStatus(error instanceof Error ? error.message : "Publish failed");
+    } finally {
+      setPublishing(false);
+    }
   };
   useEffect(() => {
     const warnBeforeLeaving = (event) => {
@@ -77,15 +102,16 @@ export function Admin() {
   return <main className="ve-shell">
     <header className="ve-header">
       <div><small>Wenzhe Xu · local editor</small><h1>Visual editor</h1></div>
-      <div className="ve-actions"><span>{status}</span><button className="ve-save" type="button" onClick={save} disabled={!dirty}>Save changes</button><a href={withBase()} target="_blank">Open website</a><button type="button" onClick={() => update(clone(defaultSite))}>Reset draft</button></div>
+      <div className="ve-actions"><span>{status}</span><button className="ve-save" type="button" onClick={save} disabled={!dirty || publishing}>{isOnlineEditor || githubToken ? "Publish changes" : "Save changes"}</button><a href={withBase()} target="_blank">Open website</a><button type="button" onClick={() => update(clone(defaultSite))}>Reset draft</button></div>
     </header>
     <div className="ve-workspace">
       <aside className="ve-sidebar">
-        <nav className="ve-tabs" style={{ gridTemplateColumns: "repeat(4, 1fr)" }}>
+        <nav className="ve-tabs" style={{ gridTemplateColumns: "repeat(5, 1fr)" }}>
           <button className={panel === "home" ? "active" : ""} onClick={() => setPanel("home")}>Home</button>
           <button className={panel === "projects" ? "active" : ""} onClick={() => setPanel("projects")}>Projects</button>
           <button className={panel === "cv" ? "active" : ""} onClick={() => setPanel("cv")}>CV</button>
           <button className={panel === "layout" ? "active" : ""} onClick={() => setPanel("layout")}>Layout</button>
+          <button className={panel === "publish" ? "active" : ""} onClick={() => setPanel("publish")}>Publish</button>
         </nav>
 
         {panel === "home" && <section className="ve-panel">
@@ -136,6 +162,14 @@ export function Admin() {
           <Range label="Page top spacing" min="24" max="120" value={content.design.pageTop} onChange={(value) => update({ ...content, design: { ...content.design, pageTop: value } })} />
           <Range label="Home body font" min="15" max="26" value={content.design.bodyFontSize} onChange={(value) => update({ ...content, design: { ...content.design, bodyFontSize: value } })} />
           <Range label="Project row gap" min="20" max="100" value={content.design.sectionGap} onChange={(value) => update({ ...content, design: { ...content.design, sectionGap: value } })} />
+        </section>}
+
+        {panel === "publish" && <section className="ve-panel">
+          <h2>Publish to GitHub</h2>
+          <p style={{ color: "var(--ve-muted)", fontSize: 12, lineHeight: 1.55 }}>Enter a fine-grained GitHub token with access only to <strong>wenzhe9/personal-academic-site</strong> and the repository permission <strong>Contents: Read and write</strong>.</p>
+          <label className="ve-field"><span>GitHub fine-grained token</span><input type="password" autoComplete="off" value={githubToken} onChange={(event) => setGithubToken(event.target.value)} placeholder="github_pat_…" /></label>
+          <p style={{ color: "var(--ve-muted)", fontSize: 11, lineHeight: 1.55 }}>The token stays only in this open editor page. It is not saved in the website, browser storage, or GitHub repository.</p>
+          <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noreferrer" style={{ display: "inline-block", marginTop: 4, fontSize: 12 }}>Create a fine-grained token on GitHub</a>
         </section>}
       </aside>
       <section className="ve-preview"><div><span>Live preview</span><small>{preview}</small></div><iframe key={`${preview}-${revision}`} src={`${preview}?edit=${revision}`} title="Live website preview" /></section>
