@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.qa/
+.npm-cache/
+output/
+*.command
+.DS_Store
