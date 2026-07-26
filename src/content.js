@@ -1,4 +1,4 @@
-import defaultSiteData from "./default-site.json";
+import defaultSiteData from "../public/site-content.json";
 
 export const STORAGE_KEY = "wenzhe-academic-site-v2-content";
 

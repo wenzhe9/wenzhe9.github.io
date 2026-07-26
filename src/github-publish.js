@@ -98,7 +98,7 @@ export async function publishSite({ content, token, getPdf }) {
   }
 
   files.push({
-    path: "src/default-site.json",
+    path: "public/site-content.json",
     content: textToBase64(`${JSON.stringify(nextContent, null, 2)}\n`),
   });
 

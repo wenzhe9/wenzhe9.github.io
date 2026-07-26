@@ -115,14 +115,36 @@ function ProjectPdf({ site, useLocalPdf }) {
   return <div className="cv-page" style={{ background: "#fbfbfa" }}><div className="site-frame cv-header-frame" style={{ position: "sticky", top: 0, zIndex: 50, background: "#fbfbfa" }}><Header current="Project" site={site} /></div><main className="pdf-shell" style={{ paddingTop: 64, position: "relative" }}><a href={withBase("projects/")} style={{ position: "absolute", top: 16, left: "max(24px, calc((100% - 1120px) / 2))", display: "inline-block", padding: "8px 12px", border: "1px solid #cfd4d7", background: "#fff", color: "#202632", fontFamily: "var(--sans)", fontSize: 13, textDecoration: "none" }}>← Back to projects</a><PdfDocument storageKey={`project-${id}`} fallback={fallback} title={project.title} emptyMessage="No PDF has been uploaded for this project yet." useLocal={useLocalPdf} /></main><div className="site-frame cv-footer-frame"><Footer /></div></div>;
 }
 
-export function App() {
-  const path = getAppPath();
-  if (path.startsWith("/admin")) return <Admin />;
+function PublicSite({ path }) {
   const isHostedSite = window.location.hostname.endsWith("github.io");
   const useLocalDraft = !isHostedSite || new URLSearchParams(window.location.search).has("edit");
-  const site = useLocalDraft ? loadSite() : defaultSite;
+  const [site, setSite] = useState(() => useLocalDraft ? loadSite() : defaultSite);
+
+  useEffect(() => {
+    if (useLocalDraft) {
+      setSite(loadSite());
+      return undefined;
+    }
+
+    let cancelled = false;
+    fetch(`${withBase("site-content.json")}?v=${Date.now()}`, { cache: "no-store" })
+      .then((response) => {
+        if (!response.ok) throw new Error(`Unable to load site content (${response.status})`);
+        return response.json();
+      })
+      .then((content) => { if (!cancelled) setSite(content); })
+      .catch(() => { if (!cancelled) setSite(defaultSite); });
+    return () => { cancelled = true; };
+  }, [useLocalDraft]);
+
   if (path.startsWith("/projects")) return <Projects site={site} />;
   if (path.startsWith("/project/")) return <ProjectPdf site={site} useLocalPdf={useLocalDraft} />;
   if (path.startsWith("/cv")) return <CV site={site} useLocalPdf={useLocalDraft} />;
   return <Home site={site} />;
+}
+
+export function App() {
+  const path = getAppPath();
+  if (path.startsWith("/admin")) return <Admin />;
+  return <PublicSite path={path} />;
 }
