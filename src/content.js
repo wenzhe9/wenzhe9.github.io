@@ -20,9 +20,11 @@ export const defaultSite = {
     { date: "[07/26]", text: "Curriculum vitae page prepared for the final PDF." },
   ],
   projects: Array.from({ length: 5 }, (_, index) => ({
-    title: `Project ${String(index + 1).padStart(2, "0")} — Add project title`,
-    period: "20XX – 20XX · Research project",
-    summary: "Add a concise introduction to the research question, context, and your role in the project.",
+    title: index === 0 ? "Project 01 — A.O. SMITH" : `Project ${String(index + 1).padStart(2, "0")} — Add project title`,
+    period: index === 0 ? "2022 · Work project" : "20XX – 20XX · Research project",
+    summary: index === 0
+      ? "Based on the horizontal screen hardware UX design of the Manufacturing Execution System for workers in a fixed workstation scenario Co-Design / UX Design"
+      : "Add a concise introduction to the research question, context, and your role in the project.",
     detail: "Use this paragraph for methods, collaborators, key findings, outputs, or the impact of the work. Keep each description focused so the image and text remain balanced.",
     link: "#",
     image: index === 0 ? "/assets/project-01.jpg" : "",
