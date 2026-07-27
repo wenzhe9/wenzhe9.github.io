@@ -88,7 +88,7 @@ function Projects({ site }) {
   );
 }
 
-function PdfDocument({ storageKey, fallback = "", title, emptyMessage = "No PDF has been uploaded yet.", useLocal = true }) {
+function PdfDocument({ storageKey, fallback = "", title, emptyMessage = "No PDF has been uploaded yet.", useLocal = true, showOpenButton = false }) {
   const [url, setUrl] = useState(fallback);
   useEffect(() => {
     if (!useLocal) {
@@ -102,7 +102,10 @@ function PdfDocument({ storageKey, fallback = "", title, emptyMessage = "No PDF 
     return () => { if (objectUrl) URL.revokeObjectURL(objectUrl); };
   }, [fallback, storageKey, useLocal]);
   if (!url) return <div className="pdf-empty" style={{ width: "min(1120px, 100%)", height: "100%", margin: "0 auto", padding: "72px", background: "#fff" }}><h1 style={{ marginTop: 0 }}>{title}</h1><p>{emptyMessage}</p><a href={withBase("admin/")}>Upload PDF in the visual editor</a></div>;
-  return <object data={url} type="application/pdf" aria-label={title}><p><a href={url}>Open PDF</a></p></object>;
+  return <>
+    {showOpenButton && <a href={url} target="_blank" rel="noreferrer" aria-label={`Open ${title} PDF in a new tab`} style={{ position: "absolute", top: 16, right: "max(24px, calc((100% - 1120px) / 2))", zIndex: 2, display: "inline-block", padding: "8px 12px", border: "1px solid #cfd4d7", background: "#fff", color: "#202632", fontFamily: "var(--sans)", fontSize: 13, textDecoration: "none" }}>Full-screen PDF ↗</a>}
+    <object data={url} type="application/pdf" aria-label={title}><p><a href={url}>Open PDF</a></p></object>
+  </>;
 }
 
 function CV({ site, useLocalPdf }) {
@@ -117,7 +120,7 @@ function ProjectPdf({ site, useLocalPdf }) {
     return <div className="cv-page" style={{ background: "#fbfbfa" }}><div className="site-frame cv-header-frame"><Header current="Project" site={site} /></div><main className="site-frame projects-page"><h1>Project unavailable</h1><p>This project is currently hidden.</p><a href={withBase("projects/")}>← Back to projects</a></main></div>;
   }
   const fallback = project.pdfPath ? withBase(project.pdfPath) : "";
-  return <div className="cv-page" style={{ background: "#fbfbfa" }}><div className="site-frame cv-header-frame" style={{ position: "sticky", top: 0, zIndex: 50, background: "#fbfbfa" }}><Header current="Project" site={site} /></div><main className="pdf-shell" style={{ paddingTop: 64, position: "relative" }}><a href={withBase("projects/")} style={{ position: "absolute", top: 16, left: "max(24px, calc((100% - 1120px) / 2))", display: "inline-block", padding: "8px 12px", border: "1px solid #cfd4d7", background: "#fff", color: "#202632", fontFamily: "var(--sans)", fontSize: 13, textDecoration: "none" }}>← Back to projects</a><PdfDocument storageKey={project.storageKey || `project-${id}`} fallback={fallback} title={project.title} emptyMessage="No PDF has been uploaded for this project yet." useLocal={useLocalPdf} /></main><div className="site-frame cv-footer-frame"><Footer /></div></div>;
+  return <div className="cv-page" style={{ background: "#fbfbfa" }}><div className="site-frame cv-header-frame" style={{ position: "sticky", top: 0, zIndex: 50, background: "#fbfbfa" }}><Header current="Project" site={site} /></div><main className="pdf-shell" style={{ paddingTop: 64, position: "relative" }}><a href={withBase("projects/")} style={{ position: "absolute", top: 16, left: "max(24px, calc((100% - 1120px) / 2))", display: "inline-block", padding: "8px 12px", border: "1px solid #cfd4d7", background: "#fff", color: "#202632", fontFamily: "var(--sans)", fontSize: 13, textDecoration: "none" }}>← Back to projects</a><PdfDocument storageKey={project.storageKey || `project-${id}`} fallback={fallback} title={project.title} emptyMessage="No PDF has been uploaded for this project yet." useLocal={useLocalPdf} showOpenButton /></main><div className="site-frame cv-footer-frame"><Footer /></div></div>;
 }
 
 function PublicSite({ path }) {
