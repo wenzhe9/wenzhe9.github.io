@@ -174,7 +174,7 @@ export function Admin() {
           <Range label="Content width" min="760" max="1380" value={content.design.contentWidth} onChange={(value) => update({ ...content, design: { ...content.design, contentWidth: value } })} />
           <Range label="Page top spacing" min="24" max="120" value={content.design.pageTop} onChange={(value) => update({ ...content, design: { ...content.design, pageTop: value } })} />
           <Range label="Home body font" min="15" max="26" value={content.design.bodyFontSize} onChange={(value) => update({ ...content, design: { ...content.design, bodyFontSize: value } })} />
-          <Range label="Project row gap" min="20" max="100" value={content.design.sectionGap} onChange={(value) => update({ ...content, design: { ...content.design, sectionGap: value } })} />
+          <Range label="Project row gap" min="12" max="100" value={content.design.projectMarginBottom ?? 24} onChange={(value) => update({ ...content, design: { ...content.design, projectMarginBottom: value } })} />
         </section>}
 
         {panel === "publish" && <section className="ve-panel">

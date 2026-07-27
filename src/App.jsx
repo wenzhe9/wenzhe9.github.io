@@ -73,7 +73,7 @@ function Projects({ site }) {
       <main className="projects-page" style={{ paddingTop: site.design.pageTop }}>
         <div className="project-list">
           {visibleProjects.map(({ project, index }, visibleIndex) => (
-            <article className="project" key={project.storageKey || project.title} style={{ marginBottom: site.design.sectionGap }}>
+            <article className="project" key={project.storageKey || project.title} style={{ marginBottom: site.design.projectMarginBottom ?? 24 }}>
               <h2>{project.title}</h2>
               <div className="project-grid">
                 <a href={withBase(`project/?id=${index}`)} aria-label={`Open ${project.title} details`} style={{ display: "block", color: "inherit", textDecoration: "none" }}><ProjectImage index={visibleIndex} src={project.image} alt={project.title} /></a>

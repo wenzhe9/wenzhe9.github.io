@@ -98,6 +98,7 @@
     "contentWidth": 1120,
     "pageTop": 64,
     "bodyFontSize": 21,
-    "sectionGap": 48
+    "sectionGap": 48,
+    "projectMarginBottom": 24
   }
 }
