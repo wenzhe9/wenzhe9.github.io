@@ -9,7 +9,7 @@
     "github": false,
     "linkedin": true
   },
-  "newsVisible": false,
+  "newsVisible": true,
   "portrait": "/uploads/portrait.jpg",
   "intro": [
     "I am a researcher interested in how people understand, use, and live with emerging technologies. My work brings together human–computer interaction, responsible innovation, and technology-mediated experiences.",
@@ -19,18 +19,20 @@
   "news": [
     {
       "date": "[07/26]",
+      "text": "New personal academic website structure launched.",
       "visible": true,
-      "text": "New personal academic website structure launched locally."
+      "dateVisible": true
     },
     {
       "date": "[07/26]",
-      "visible": true,
-      "text": "Project descriptions and images are ready to be replaced with final research materials."
+      "text": "Project descriptions and images are ready to be replaced with final research materials.",
+      "dateVisible": false,
+      "visible": false
     },
     {
       "date": "[07/26]",
-      "visible": true,
-      "text": "Curriculum vitae page prepared for the final PDF."
+      "text": "Curriculum vitae page prepared for the final PDF.",
+      "dateVisible": false
     }
   ],
   "projects": [
