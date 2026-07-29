@@ -19,14 +19,17 @@
   "news": [
     {
       "date": "[07/26]",
+      "dateVisible": true,
       "text": "New personal academic website structure launched locally."
     },
     {
       "date": "[07/26]",
+      "dateVisible": true,
       "text": "Project descriptions and images are ready to be replaced with final research materials."
     },
     {
       "date": "[07/26]",
+      "dateVisible": true,
       "text": "Curriculum vitae page prepared for the final PDF."
     }
   ],

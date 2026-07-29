@@ -48,7 +48,7 @@ function Home({ site }) {
         {site.newsVisible && (
           <section className="news">
             <h2>news</h2>
-            <ul>{news.map((item) => <li key={item.date + item.text}><strong>{item.date}</strong> {item.text}</li>)}</ul>
+            <ul>{news.map((item) => <li key={item.date + item.text}>{item.dateVisible !== false && <><strong>{item.date}</strong>{" "}</>}{item.text}</li>)}</ul>
           </section>
         )}
       </main>
