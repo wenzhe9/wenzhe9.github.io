@@ -100,32 +100,175 @@
   "daily": {
     "seedVersion": 3,
     "photography": [
-      { "year": "2014", "place": "Shanghai", "image": "/assets/daily/shanghai.png", "orientation": "portrait", "text": "During a Tongji University summer school, I paused on an overpass and watched the traffic gather beneath the bridge, waiting for the lights to change.", "visible": true },
-      { "year": "2015", "place": "The university activity square", "image": "/assets/daily/university-square.png", "orientation": "wide", "text": "At a graduation show by the music department, I watched from a distance and began to understand that my own four years at university were coming to an end.", "visible": true },
-      { "year": "2015", "place": "Yantai Train Station", "image": "/assets/daily/yantai-station.png", "orientation": "wide", "text": "After graduating, I left my hometown to begin work in another city.", "visible": true },
-      { "year": "2016", "place": "Seaside in Qingdao", "image": "/assets/daily/qingdao-seaside.png", "orientation": "wide", "text": "A familiar road between the company and my apartment, passed every day.", "visible": true },
-      { "year": "2017", "place": "The Thames in London", "image": "/assets/daily/london-thames.png", "orientation": "wide", "text": "I came to London for further study. On the banks of the Thames, this was the most beautiful scene I found.", "visible": true },
-      { "year": "2018", "place": "The Tower Bridge in London", "image": "/assets/daily/tower-bridge.png", "orientation": "wide", "text": "On Christmas Day, I waited for a boat to Westminster Abbey at Tower Bridge - happy to use my camera to record the world.", "visible": true },
-      { "year": "2019", "place": "Hangzhou", "image": "/assets/daily/hangzhou.png", "orientation": "wide", "text": "After graduating from Goldsmiths, University of London, I began working in Hangzhou. This daily commute caught the city preparing for the 19th Asian Games.", "visible": true },
-      { "year": "2019", "place": "Lisbon", "image": "/assets/daily/lisbon.png", "orientation": "portrait", "text": "The first stop of my graduation trip - a city where every day felt sunny.", "visible": true },
-      { "year": "2021", "place": "Eboliang Yardang in Qinghai", "image": "/assets/daily/qinghai.png", "orientation": "panorama", "text": "A landscape that connects people and nature through a vast, fractal structure.", "visible": true },
-      { "year": "2023", "place": "Namcha Barwa in Tibet", "image": "/assets/daily/tibet.png", "orientation": "portrait", "text": "Here, time and life seem to extend indefinitely; each person feels small, yet deeply present.", "visible": true },
-      { "year": "2024", "place": "Hong Kong", "image": "/assets/daily/hong-kong.png", "orientation": "portrait", "text": "After the pandemic, I travelled to Hong Kong and photographed the Central-Mid-Levels Escalator.", "visible": true }
+      {
+        "year": "2014",
+        "place": "QingDao",
+        "image": "/uploads/daily-photography-1.jpg",
+        "orientation": "portrait",
+        "text": "a lot of people were waiting for the sunrise at the seaside, so was I.",
+        "visible": false
+      },
+      {
+        "year": "2015",
+        "place": "The university activity square",
+        "image": "/uploads/daily-photography-2.jpg",
+        "orientation": "wide",
+        "text": "At a graduation show by the music department, I watched from a distance and began to understand that my own four years at university were coming to an end.",
+        "visible": true
+      },
+      {
+        "year": "2015",
+        "place": "Yantai Train Station",
+        "image": "/uploads/daily-photography-3.jpg",
+        "orientation": "wide",
+        "text": "After graduating, I left my hometown to begin work in another city.",
+        "visible": true
+      },
+      {
+        "year": "2016",
+        "place": "Seaside in Qingdao",
+        "image": "/uploads/daily-photography-4.jpg",
+        "orientation": "wide",
+        "text": "A familiar road between the company and my apartment, passed every day.",
+        "visible": true
+      },
+      {
+        "year": "2017",
+        "place": "The Thames in London",
+        "image": "/uploads/daily-photography-5.jpg",
+        "orientation": "wide",
+        "text": "I came to London for further study. On the banks of the Thames, this was the most beautiful scene I found.",
+        "visible": true
+      },
+      {
+        "year": "2018",
+        "place": "The Tower Bridge in London",
+        "image": "/uploads/daily-photography-6.jpg",
+        "orientation": "wide",
+        "text": "On Christmas Day, I waited for a boat to Westminster Abbey at Tower Bridge - happy to use my camera to record the world.",
+        "visible": true
+      },
+      {
+        "year": "2019",
+        "place": "Lisbon",
+        "image": "/uploads/daily-photography-7.jpg",
+        "orientation": "wide",
+        "text": "The first stop of my graduation trip - a city where every day felt sunny.",
+        "visible": true
+      },
+      {
+        "year": "2019",
+        "place": "HangZhou",
+        "image": "/uploads/daily-photography-8.jpg",
+        "orientation": "portrait",
+        "text": "After I graduated from Goldsmiths. \nI worked in Hangzhou and then came to Shanghai three years later.\nThis city was being renovated in preparation for the 19th Asian Games.",
+        "visible": true
+      },
+      {
+        "year": "2021",
+        "place": "Eboliang",
+        "image": "/uploads/daily-photography-9.jpg",
+        "orientation": "panorama",
+        "text": "COVID-19 has just been lifted, and I went to a Martian landscape called Oboliang in northwest China, A landscape that connects people and nature through a vast, fractal structure.",
+        "visible": true
+      },
+      {
+        "year": "2023",
+        "place": "Namcha Barwa in Tibet",
+        "image": "/uploads/daily-photography-10.jpg",
+        "orientation": "portrait",
+        "text": "Here, time and life seem to extend indefinitely; each person feels small, yet deeply present.",
+        "visible": true
+      },
+      {
+        "year": "2024",
+        "place": "On the Central-Mid-Levels Escalator of Hong Kong ",
+        "image": "/uploads/daily-photography-11.jpg",
+        "orientation": "portrait",
+        "text": "After the largest workforce restructuring and layoffs in the company’s history concluded in fiscal year 2023, I traveled to Hong Kong during the spring break at the start of the new fiscal year in 2024.",
+        "visible": true
+      }
     ],
     "cooking": {
       "subtitle": "Kitchen notes",
       "text": "Recipes and small pleasures from the kitchen are being collected here.",
       "items": [
-        { "year": "2026", "place": "Home cooking I", "image": "/assets/daily/cooking-home-01.png", "text": "", "visible": true },
-        { "year": "2026", "place": "Home cooking II", "image": "/assets/daily/cooking-home-02.png", "text": "", "visible": true }
+        {
+          "year": "2026",
+          "place": "Home cooking I",
+          "image": "/assets/daily/cooking-home-01.png",
+          "text": "",
+          "visible": true
+        },
+        {
+          "year": "2026",
+          "place": "Home cooking II",
+          "image": "/assets/daily/cooking-home-02.png",
+          "text": "",
+          "visible": true
+        },
+        {
+          "year": "2018 NEW YEAR",
+          "place": "LONDON",
+          "image": "/uploads/daily-cooking-3.jpg",
+          "text": "",
+          "visible": true
+        },
+        {
+          "year": "2019 NEW YEAR",
+          "place": "LONDON",
+          "image": "/uploads/daily-cooking-4.jpg",
+          "text": "On New Year's Eve in 2019, I made steamed buns, hand fermented flour and rolled dough, and mixed them with hometown specialty fillings such as cabbage, shrimp, vermicelli, and tofu",
+          "visible": true
+        },
+        {
+          "year": "2025",
+          "place": "SHANGHAI",
+          "image": "/uploads/daily-cooking-5.jpg",
+          "text": " Home made popcorn",
+          "visible": true
+        },
+        {
+          "year": "2026",
+          "place": "SHANGHAI",
+          "image": "/uploads/daily-cooking-6.jpg",
+          "text": "PARTY",
+          "visible": true
+        },
+        {
+          "year": "2025",
+          "place": "SHANGHAI",
+          "image": "/uploads/daily-cooking-7.jpg",
+          "text": "",
+          "visible": false
+        }
       ]
     },
     "cat": {
       "subtitle": "Daily company",
       "text": "A corner for quiet naps, curious moments, and life with a cat.",
       "items": [
-        { "year": "2026", "place": "Rescued cats", "image": "/uploads/daily-cat-rescue-cats.png", "text": "", "visible": true },
-        { "year": "2026", "place": "Foster dog", "image": "/uploads/daily-cat-foster-dog.jpg", "text": "", "visible": true }
+        {
+          "year": "2026",
+          "place": "DUNDUN",
+          "image": "/uploads/daily-cat-1.jpg",
+          "text": "On June 1, 2026, I adopted a tortoiseshell cat.\nShe traveled with me from Shanghai back to Hangzhou, then on a 1,000-kilometer road trip to my hometown in the north, and finally back to Hangzhou again—wherever I go, I always bring her along.",
+          "visible": true
+        },
+        {
+          "year": "2026",
+          "place": "NIUNIU",
+          "image": "/uploads/daily-cat-rescue-cats.png",
+          "text": "In August, I rescued a calico cat with a fractured hind leg.\nMy parents were very happy to adopt her and named her Niuniu, which means the little daughter of the family.",
+          "visible": true
+        },
+        {
+          "year": "2026",
+          "place": "Connie",
+          "image": "/uploads/daily-cat-foster-dog.jpg",
+          "text": "In October, I served as a dog foster family for 14 days.",
+          "visible": true
+        }
       ]
     }
   },
