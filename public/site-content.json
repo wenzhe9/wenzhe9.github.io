@@ -14,14 +14,14 @@
   "intro": [
     "I am a researcher interested in how people understand, use, and live with emerging technologies. I am good at identifying wicked design problems and creating better user-centered solutions.",
     "My current research focuses on designing thoughtful digital systems and studying their social impact. I am especially interested in work that turns careful observation into practical, human-centred design.",
-    "Key Words: Smart Manufacturing, Industry 5.0, Inclusive Design, Cognitive Ergonomics"
+    "Key Words: Inclusive Design, Cognitive Ergonomics, Smart Manufacturing, Industry 5.0, "
   ],
   "news": [
     {
       "date": "[07/27]",
       "text": "New personal academic website structure launched.",
-      "visible": true,
-      "dateVisible": true
+      "visible": false,
+      "dateVisible": false
     },
     {
       "date": "[07/26]",
